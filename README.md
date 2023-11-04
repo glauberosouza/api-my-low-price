@@ -13,7 +13,7 @@
 
 O App Meu Preço Baixo é uma versão embrionária de um agregador de preços, semelhante ao Buscapé. Ele permite aos usuários cadastrar produtos de interesse e definir alertas de preço para esses produtos. O sistema é composto por duas entidades principais:
   
-Crawler (Rastreador):
+Crawler:
 
     Atributos: Nome, Link, Preço.
     Funcionalidade: Realiza o cadastro de novos produtos.
