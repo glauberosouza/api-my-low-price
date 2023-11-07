@@ -40,6 +40,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
+    @GetMapping("{productId}")
+    public ResponseEntity<ProductResponse> findAProduct(@PathVariable Long productId) {
+        var productById = productService.findProductById(productId);
+        var productResponse = Product.toProductResponse(productById);
+        return ResponseEntity.status(HttpStatus.OK).body(productResponse);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> update(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
         var productEntity = ProductRequest.toProductEntity(productRequest);

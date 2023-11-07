@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  kafka:
+    image: landoop/fast-data-dev
+    container_name: o8k_academy_kafka
+    ports:
+      - 9092:9092 # KAFKA BROKER
+      - 8081:8081 # SCHEMA REGISTRY
+      - 8082:8082 # KAFKA REST PROXY
+      - 8083:8083 # KAFKA CONNECT DISTRIBUTED
+      - 2181:2181 # ZOOKEEPER
+      - 3030:3030 # WEB SERVER
+      - 9581:9581 # JMX
+      - 9582:9582 # JMX
+      - 9583:9583 # JMX
+      - 9584:9584 # JMX
+    environment:
+      - ADV_HOST=localhost
+      - RUNTESTS=0
+      - SAMPLEDATA=0
+      - RUNNING_SAMPLEDATA=0
+    volumes:
+      - ~/localstack/o8kacademy/data/kafka/:/data/
+    restart: "no"

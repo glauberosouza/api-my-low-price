@@ -1,6 +1,9 @@
 package com.glauber.MyLowPrice.controller.request;
 
 import com.glauber.MyLowPrice.domain.entities.Product;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +16,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequest {
+    @NotBlank(message = "O campo nome deve ser preenchido corretamente!")
     private String name;
+    @NotBlank(message = "O campo link deve ser preenchido corretamente!")
     private String link;
+    @Min(value = 1, message = "Preço preenchido deve ser maior que 1")
     private BigDecimal price;
 
     public static Product toProductEntity(ProductRequest productRequest) {

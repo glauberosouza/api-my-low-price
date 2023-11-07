@@ -11,4 +11,11 @@ public class ProductRequestTemplate {
                 BigDecimal.valueOf(2000.00)
         );
     }
+    public static ProductRequest update() {
+        return new ProductRequest(
+                "Xbox360",
+                "@Xbox360",
+                BigDecimal.valueOf(4000.00)
+        );
+    }
 }

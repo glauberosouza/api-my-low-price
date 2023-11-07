@@ -25,14 +25,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         var productSaved = productRepository.save(product);
-        kafkaProducerConfig.kafkaTemplate()
-                .send("NEW_PRODUCT", "Novo produto cadastrado: " + productSaved.getName());
+        /*kafkaProducerConfig.kafkaTemplate()
+                .send("NEW_PRODUCT", "Novo produto cadastrado: " + productSaved.getName());*/
         return productSaved;
     }
 
     @Override
     public Page<Product> allProductsPaginated(PageRequest pageRequest) {
         return paginatedRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Product findProductById(Long id) {
+        var productById = productRepository.findById(id);
+        if (productById.isEmpty()) {
+            throw new NoSuchElementException("Não foi encontrado o produto com o id: " + id + " Informado!");
+        }
+        return productById.get();
     }
 
     @Override
