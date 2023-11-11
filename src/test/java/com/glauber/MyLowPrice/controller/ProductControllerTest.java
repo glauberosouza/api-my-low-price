@@ -4,21 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glauber.MyLowPrice.BaseCompTest;
 import com.glauber.MyLowPrice.domain.entities.Product;
 import com.glauber.MyLowPrice.service.ProductService;
-import com.glauber.MyLowPrice.templates.ProductRequest;
-import com.glauber.MyLowPrice.templates.ProductRequestTemplate;
+import com.glauber.MyLowPrice.templates.productTemplate.ProductRequestTemplate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

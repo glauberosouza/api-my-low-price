@@ -1,4 +1,4 @@
-package com.glauber.MyLowPrice.templates;
+package com.glauber.MyLowPrice.templates.productTemplate;
 
 import java.math.BigDecimal;
 

@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  mynetwork:
+    driver: bridge
+
 services:
 
   kafka:

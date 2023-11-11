@@ -1,7 +1,8 @@
-package com.glauber.MyLowPrice.templates;
+package com.glauber.MyLowPrice.templates.productTemplate;
+
+import com.glauber.MyLowPrice.templates.productTemplate.ProductRequest;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class ProductRequestTemplate {
     public static ProductRequest creation() {
