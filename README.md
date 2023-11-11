@@ -47,5 +47,5 @@ classDiagram
 - Quando um alerta de preço é cadastrado, o sistema envia um evento para a fila.
   - Quando esse evento é consumido, um email é enviado para o usuário, confirmando o sucesso do cadastro do alerta.
  
-## Projeto em andamento sujeito a alterações em breve.
+## Projeto em andamento sujeito a alterações.
 
