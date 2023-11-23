@@ -1,9 +1,5 @@
 version: '3'
 
-networks:
-  mynetwork:
-    driver: bridge
-
 services:
 
   kafka:
@@ -20,11 +16,13 @@ services:
       - 9582:9582 # JMX
       - 9583:9583 # JMX
       - 9584:9584 # JMX
+    hostname: kafka
     environment:
       - ADV_HOST=localhost
       - RUNTESTS=0
       - SAMPLEDATA=0
       - RUNNING_SAMPLEDATA=0
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
     volumes:
       - ~/localstack/o8kacademy/data/kafka/:/data/
     restart: "no"

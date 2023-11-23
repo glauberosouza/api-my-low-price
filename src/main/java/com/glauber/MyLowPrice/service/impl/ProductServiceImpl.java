@@ -4,13 +4,14 @@ import com.glauber.MyLowPrice.domain.entities.Product;
 import com.glauber.MyLowPrice.domain.repository.ProductPaginatedRepository;
 import com.glauber.MyLowPrice.domain.repository.ProductRepository;
 import com.glauber.MyLowPrice.service.ProductService;
-import com.glauber.MyLowPrice.service.kafkaService.KafkaProductEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+
 //TODO: DEIXEI COMENTADO O KAFKA PARA CONTINUAR O DESENVOLVIMENTO DO PROJETO, AO FINAL TENTO RESOLVER O KAFKA.
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,12 +20,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductPaginatedRepository paginatedRepository;
     @Autowired
-    private KafkaProductEventService kafkaProductEventService;
+    private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public Product save(Product product) {
         var productSaved = productRepository.save(product);
-        //kafkaProductEventService.sendNewEventForNewProduct(productSaved);
+        kafkaTemplate.send("NEW_PRODUCT", productSaved.getId() + " " + productSaved.getName() + " " + productSaved.getLink() + " " + productSaved.getPrice());
         return productSaved;
     }
 
