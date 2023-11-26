@@ -1,5 +1,6 @@
 package com.glauber.MyLowPrice.service.impl;
 
+import com.glauber.MyLowPrice.controller.exception.ProductAlreadyExistsException;
 import com.glauber.MyLowPrice.domain.entities.Product;
 import com.glauber.MyLowPrice.domain.repository.ProductPaginatedRepository;
 import com.glauber.MyLowPrice.domain.repository.ProductRepository;
@@ -24,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product product) {
+        CheckProduct(product);
         var productSaved = productRepository.save(product);
         kafkaTemplate.send("NEW_PRODUCT", productSaved.getId() + " " + productSaved.getName() + " " + productSaved.getLink() + " " + productSaved.getPrice());
         return productSaved;
@@ -67,4 +69,10 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(productToDelete);
     }
 
+    private void CheckProduct(Product product) {
+        if (productRepository.findByName(product.getName()).isPresent() &&
+                productRepository.findById(product.getId()).isPresent()) {
+            throw new ProductAlreadyExistsException("Produto com id " + product.getId() + " e nome " + product.getName() + " já existe.");
+        }
+    }
 }

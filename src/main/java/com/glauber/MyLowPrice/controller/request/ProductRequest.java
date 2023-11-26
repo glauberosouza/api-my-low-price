@@ -3,7 +3,6 @@ package com.glauber.MyLowPrice.controller.request;
 import com.glauber.MyLowPrice.domain.entities.Product;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

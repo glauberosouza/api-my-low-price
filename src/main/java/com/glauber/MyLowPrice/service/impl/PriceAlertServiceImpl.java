@@ -1,5 +1,6 @@
 package com.glauber.MyLowPrice.service.impl;
 
+import com.glauber.MyLowPrice.controller.exception.PriceAlertAlreadyExistException;
 import com.glauber.MyLowPrice.domain.entities.PriceAlert;
 import com.glauber.MyLowPrice.domain.repository.PriceALertPaginatedRepository;
 import com.glauber.MyLowPrice.domain.repository.PriceAlertRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
 //TODO: CRIAR A LÓGICA DO ENVIO DA MENSAGEM NO TOPICO DO KAFKA E INTREGAR O MÉTODO SEND DO KAFKA QUANDO SALVAR UM ALERTA.
 @Service
 public class PriceAlertServiceImpl implements PriceAlertService {
@@ -27,9 +29,9 @@ public class PriceAlertServiceImpl implements PriceAlertService {
 
     @Override
     public PriceAlert save(PriceAlert priceAlert) {
-
+        CheckPriceAlert(priceAlert);
         var priceAlertSaved = priceAlertRepository.save(priceAlert);
-        kafkaTemplate.send("NEW_PRICE_ALERT", priceAlertSaved.getName() + " " +priceAlertSaved.getPriceRange());
+        kafkaTemplate.send("NEW_PRICE_ALERT", priceAlertSaved.getName() + " " + priceAlertSaved.getPriceRange());
         return priceAlertSaved;
     }
 
@@ -55,5 +57,16 @@ public class PriceAlertServiceImpl implements PriceAlertService {
         }
         var priceAlert = priceAlertById.get();
         priceAlertRepository.delete(priceAlert);
+    }
+
+    private void CheckPriceAlert(PriceAlert priceAlert) {
+        if (
+                priceAlertRepository.findById(priceAlert.getId()).isPresent() &&
+                        priceAlertRepository.findByUserName(priceAlert.getName()).isPresent() &&
+                        priceAlertRepository.findByProductName(priceAlert.getProductName()).isPresent() &&
+                        priceAlertRepository.findByPriceRange(priceAlert.getPriceRange()).isPresent()
+        ) {
+            throw new PriceAlertAlreadyExistException("Já existe um alerta associado aos parâmetros informados para este usuário.");
+        }
     }
 }
