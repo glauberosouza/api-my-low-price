@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     public Product save(Product product) {
         CheckProduct(product);
         var productSaved = productRepository.save(product);
-        kafkaTemplate.send("NEW_PRODUCT", productSaved.getId() + " " + productSaved.getName() + " " + productSaved.getLink() + " " + productSaved.getPrice());
+        kafkaTemplate.send("NEW_PRODUCT", productSaved);
         return productSaved;
     }
 

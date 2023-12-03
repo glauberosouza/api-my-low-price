@@ -29,9 +29,8 @@ public class PriceAlertServiceImpl implements PriceAlertService {
 
     @Override
     public PriceAlert save(PriceAlert priceAlert) {
-        CheckPriceAlert(priceAlert);
         var priceAlertSaved = priceAlertRepository.save(priceAlert);
-        kafkaTemplate.send("NEW_PRICE_ALERT", priceAlertSaved.getName() + " " + priceAlertSaved.getPriceRange());
+        kafkaTemplate.send("NEW_PRICE_ALERT", priceAlertSaved);
         return priceAlertSaved;
     }
 
@@ -57,16 +56,5 @@ public class PriceAlertServiceImpl implements PriceAlertService {
         }
         var priceAlert = priceAlertById.get();
         priceAlertRepository.delete(priceAlert);
-    }
-
-    private void CheckPriceAlert(PriceAlert priceAlert) {
-        if (
-                priceAlertRepository.findById(priceAlert.getId()).isPresent() &&
-                        priceAlertRepository.findByUserName(priceAlert.getName()).isPresent() &&
-                        priceAlertRepository.findByProductName(priceAlert.getProductName()).isPresent() &&
-                        priceAlertRepository.findByPriceRange(priceAlert.getPriceRange()).isPresent()
-        ) {
-            throw new PriceAlertAlreadyExistException("Já existe um alerta associado aos parâmetros informados para este usuário.");
-        }
     }
 }
