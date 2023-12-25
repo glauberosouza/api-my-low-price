@@ -1,7 +1,6 @@
 package com.glauber.MyLowPrice.controller.request;
 
 import com.glauber.MyLowPrice.domain.entities.PriceAlert;
-import com.glauber.MyLowPrice.domain.entities.Product;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceAlertRequest {
-    @NotBlank(message = "O campo nome deve ser preenchido corretamente!")
+    @NotBlank(message = "O campo name deve ser preenchido corretamente!")
     private String name;
     @NotBlank(message = "O campo product name deve ser preenchido corretamente!")
     private String productName;

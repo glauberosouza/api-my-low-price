@@ -15,7 +15,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 
-//TODO: EU GOSTARIA DE CRIAR OS TÓPICAS AQUI E NÃO MANUALMENTE, PRECISO ENCONTRAR UM MEIO DE INSERIR O GROUP ID TAMBÉM.
 @Configuration
 public class KafkaProducerConfig {
     @Autowired

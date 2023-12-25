@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//TODO:Configurar para quando um produto for persistido no banco de dados, seja lançado um evento para fila no kafka
-//TODO:Analisar o erro no kafka após o envio da primeira mensagem para fila o mesmo parou de funcionar.
 
 @RestController
 @RequestMapping("/api/products")

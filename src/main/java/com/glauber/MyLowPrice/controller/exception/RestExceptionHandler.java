@@ -15,7 +15,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionResponse noSUchElementException(NoSuchElementException e) {
         ExceptionResponseBuilder exceptionResponseBuilder = new ExceptionResponseBuilder(
-                "Not found",
+                "O recurso não foi encontrado. Verifique os parâmetros da sua solicitação",
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage()
         );
@@ -48,7 +48,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse productAlreadyExistsException(ProductAlreadyExistsException e) {
         ExceptionResponseBuilder exceptionResponseBuilder = new ExceptionResponseBuilder(
-                "Product Already exist",
+                "O produto já existe não podendo se repetir!",
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage()
         );
@@ -59,7 +59,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse priceAlertAlreadyExistException(PriceAlertAlreadyExistException e) {
         ExceptionResponseBuilder exceptionResponseBuilder = new ExceptionResponseBuilder(
-                "Price Alert Already exist",
+                "Alerta de preco já existente não podendo se repetir!",
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage()
         );
@@ -71,6 +71,17 @@ public class RestExceptionHandler {
     public ExceptionResponse nullPointerException(NullPointerException e) {
         ExceptionResponseBuilder exceptionResponseBuilder = new ExceptionResponseBuilder(
                 "Erro interno do servidor, objeto nulo encontrado",
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                e.getMessage()
+        );
+        return exceptionResponseBuilder.build();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ExceptionResponse illegalArgumentException(IllegalArgumentException e) {
+        ExceptionResponseBuilder exceptionResponseBuilder = new ExceptionResponseBuilder(
+                "O id está sendo retornado como nulo devido a tentativa de persistir um elemento repetido",
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 e.getMessage()
         );

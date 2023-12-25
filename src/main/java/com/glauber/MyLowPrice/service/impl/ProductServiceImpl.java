@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
-//TODO: DEIXEI COMENTADO O KAFKA PARA CONTINUAR O DESENVOLVIMENTO DO PROJETO, AO FINAL TENTO RESOLVER O KAFKA.
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired

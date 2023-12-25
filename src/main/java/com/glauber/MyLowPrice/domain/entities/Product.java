@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +28,7 @@ public class Product {
     private BigDecimal price;
 
     public static ProductResponse toProductResponse(Product product) {
-        ProductResponse productResponse = new ProductResponse();
+        var productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
         productResponse.setLink(product.getLink());

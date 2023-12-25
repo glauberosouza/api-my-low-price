@@ -15,11 +15,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequest {
-    @NotBlank(message = "O campo nome deve ser preenchido corretamente!")
+    @NotBlank(message = "O campo name deve ser preenchido corretamente!")
     private String name;
     @NotBlank(message = "O campo link deve ser preenchido corretamente!")
     private String link;
-    @Min(value = 1, message = "Preço preenchido deve ser maior que 1")
+    @Min(value = 1, message = "Price preenchido deve ser maior que 1")
     private BigDecimal price;
 
     public static Product toProductEntity(ProductRequest productRequest) {

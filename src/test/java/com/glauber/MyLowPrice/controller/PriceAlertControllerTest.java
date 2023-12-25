@@ -35,7 +35,7 @@ class PriceAlertControllerTest extends BaseCompTest {
     public void itMustSaveANewAlert() throws Exception {
         var priceAlert = PriceAlertRequestTemplate.creation();
         String body = objectMapper.writeValueAsString(priceAlert);
-
+    // O teste só funciona se subir o broker.
         mockMvc
                 .perform(post(BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)

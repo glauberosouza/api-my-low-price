@@ -39,7 +39,7 @@ public class PriceAlertController {
     @GetMapping("/{id}")
     public ResponseEntity<PriceAlertResponse> findById(@PathVariable Long id) {
         var priceAlertById = priceAlertService.findPriceAlertById(id);
-        var productResponse = PriceAlert.toProductResponse(priceAlertById);
+        var productResponse = PriceAlert.toPriceAlertResponse(priceAlertById);
         return ResponseEntity.status(HttpStatus.OK).body(productResponse);
     }
 
