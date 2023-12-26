@@ -11,7 +11,7 @@ public class ExceptionResponseBuilder {
         this.error = error;
     }
     public ExceptionResponse build(){
-        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        var exceptionResponse = new ExceptionResponse();
         exceptionResponse.setStatus(this.status);
         exceptionResponse.setStatusCode(this.statusCode);
         exceptionResponse.setError(this.error);

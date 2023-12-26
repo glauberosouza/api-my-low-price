@@ -33,7 +33,7 @@ class PriceAlertServiceImplTest {
     /*@Test
     @DisplayName("Deve salvar um PriceAlert com sucesso")
     public void itMustSaveAPriceAlert(){
-        // GIVEN
+        // Arrange
         var priceAlert = new PriceAlert(
                 1L,
                 "Glauber",
@@ -41,9 +41,9 @@ class PriceAlertServiceImplTest {
                 "glauber@gmail.com");
 
         when(priceAlertRepository.save(any(PriceAlert.class))).thenReturn(priceAlert);
-        // WHEN
+        // Act
         var save = priceAlertService.save(priceAlert);
-        // THEN
+        //Assert
         Assertions.assertEquals("Glauber", save.getName());
         Assertions.assertEquals("Xbox", save.getProductName());
         Assertions.assertEquals("glauber@gmail.com", save.getEmail());
@@ -52,7 +52,7 @@ class PriceAlertServiceImplTest {
     @Test
     @DisplayName("Deve encontrar um PriceAlert por ID com sucesso")
     public void itMustFindAPriceAlertById(){
-        // GIVEN
+        // Arrange
         var priceAlert = new PriceAlert(
                 1L,
                 "Glauber",
@@ -60,9 +60,9 @@ class PriceAlertServiceImplTest {
                 "glauber@gmail.com");
 
         when(priceAlertRepository.findById(1L)).thenReturn(Optional.of(priceAlert));
-        // WHEN
+        // Act
         var priceAlertById = priceAlertService.findPriceAlertById(1L);
-        // THEN
+        //Assert
         Assertions.assertEquals("Glauber", priceAlertById.getName());
         Assertions.assertEquals("Xbox", priceAlertById.getProductName());
         Assertions.assertEquals("glauber@gmail.com", priceAlertById.getEmail());
@@ -70,7 +70,7 @@ class PriceAlertServiceImplTest {
     @Test
     @DisplayName("Deve retornar uma lista paginada de PriceAlerts")
     public void itMustReturnPaginatedListOfPriceAlerts(){
-        // GIVEN
+        // Arrange
         var pageRequest = PageRequest.of(0, 10);
         var page =
                 new PageImpl<>(
@@ -82,10 +82,10 @@ class PriceAlertServiceImplTest {
                                 "glauber@gmail.com")));
         when(paginatedRepository.findAll(pageRequest)).thenReturn(page);
 
-        // WHEN
+        // Act
         var resultPage = priceAlertService.allPriceAlertsPaginated(pageRequest);
 
-        // THEN
+        //Assert
         assertTrue(resultPage.getContent().stream().anyMatch(content -> content.getName().equals("Glauber")));
         verify(paginatedRepository, times(1)).findAll(pageRequest);
     }
@@ -93,7 +93,7 @@ class PriceAlertServiceImplTest {
     @Test
     @DisplayName("Deve excluir um PriceAlert com sucesso")
     public void itMustDeleteAPriceAlert(){
-        // GIVEN
+        // Arrange
         var priceAlert = new PriceAlert(
                 1L,
                 "Glauber",
@@ -101,10 +101,10 @@ class PriceAlertServiceImplTest {
                 "glauber@gmail.com");
 
         when(priceAlertRepository.findById(1L)).thenReturn(Optional.of(priceAlert));
-        // WHEN
+        // Act
         priceAlertService.delete(1L);
         var all = priceAlertRepository.findAll();
-        // THEN
+        //Assert
         Assertions.assertEquals(0, all.size());
     }
 }

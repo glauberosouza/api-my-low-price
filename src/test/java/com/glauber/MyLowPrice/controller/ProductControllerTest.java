@@ -47,7 +47,7 @@ class ProductControllerTest extends BaseCompTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body)
         ).andExpect(status().isCreated());
-        Product productById = productService.findProductById(1L);
+        var productById = productService.findProductById(1L);
         Assertions.assertEquals(1, productById.getId());
     }
     @Test

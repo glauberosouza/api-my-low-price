@@ -14,9 +14,6 @@ public class PriceAlertRequest {
         this.email = email;
     }
 
-    public boolean isPriceAlertTriggered(double desiredProductPrice) {
-        return desiredProductPrice <= priceRange;
-    }
 
     public String getName() {
         return name;

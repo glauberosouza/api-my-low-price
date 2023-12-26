@@ -34,7 +34,7 @@ class ProductServiceImplTest {
     /*@Test
     @DisplayName("Deve salvar um produto com sucesso")
     public void itMustSaveProductSuccessfully() {
-        // GIVEN
+        // Arrange
         var product = new Product(
                 1L,
                 "Test Product",
@@ -42,10 +42,10 @@ class ProductServiceImplTest {
 
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
-        // WHEN
+        // Act
         Product savedProduct = productService.save(product);
 
-        // THEN
+        //Assert
         assertEquals("Test Product", savedProduct.getName());
         assertEquals("http://test-product.com", savedProduct.getLink());
         assertEquals(BigDecimal.valueOf(100), savedProduct.getPrice());
@@ -55,7 +55,7 @@ class ProductServiceImplTest {
     @Test
     @DisplayName("Deve retornar uma lista paginada de produtos")
     public void itMustReturnPaginatedListOfProducts() {
-        // GIVEN
+        // Arrange
         var pageRequest = PageRequest.of(0, 10);
         var page =
                 new PageImpl<>(
@@ -66,10 +66,10 @@ class ProductServiceImplTest {
                                 BigDecimal.valueOf(100))));
         when(paginatedRepository.findAll(pageRequest)).thenReturn(page);
 
-        // WHEN
+        // Act
         var resultPage = productService.allProductsPaginated(pageRequest);
 
-        // THEN
+        //Assert
         assertTrue(resultPage.getContent().stream().anyMatch(content -> content.getName().equals("Test Product")));
         verify(paginatedRepository, times(1)).findAll(pageRequest);
     }
@@ -77,7 +77,7 @@ class ProductServiceImplTest {
     @Test
     @DisplayName("Deve retornar um produto pelo id")
     public void itMustFindProductById() {
-        // GIVEN
+        // Arrange
         var product = new Product(
                 1L,
                 "Test Product",
@@ -85,17 +85,17 @@ class ProductServiceImplTest {
 
         when(productRepository.findById(1L)).thenReturn(Optional.of(product));
 
-        // WHEN
+        // Act
         var productById = productService.findProductById(1L);
 
-        // THEN
+        //Assert
         Assertions.assertEquals("Test Product", productById.getName());
     }
 
     @Test
     @DisplayName("Deve deletar um produto pelo id")
     public void itMustDeletAProduct() {
-        // GIVEN
+        // Arrange
         var product = new Product(
                 1L,
                 "Test Product",
@@ -103,11 +103,11 @@ class ProductServiceImplTest {
 
         when(productRepository.findById(1L)).thenReturn(Optional.of(product));
 
-        // WHEN
+        // Act
         productService.delete(1L);
         var all = productRepository.findAll();
 
-        // THEN
+        //Assert
         Assertions.assertEquals(0, all.size());
     }
 }
