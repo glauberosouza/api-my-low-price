@@ -12,6 +12,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -68,10 +70,19 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(productToDelete);
     }
 
+
     private void CheckProduct(Product product) {
-        if (productRepository.findByName(product.getName()).isPresent() &&
-                productRepository.findById(product.getId()).isPresent()) {
-            throw new ProductAlreadyExistsException("Produto com id " + product.getId() + " e nome " + product.getName() + " já existe.");
+        var savedProduct = productRepository.findByName(product.getName());
+
+        if (savedProduct.isPresent() &&
+                Objects.equals(savedProduct.get().getPrice(), product.getPrice()) &&
+                savedProduct.get().getLink().equalsIgnoreCase(product.getLink())) {
+            throw new ProductAlreadyExistsException("Produto com nome: "
+                    + product.getName()
+                    + " preço: "
+                    + product.getPrice()
+                    + " link: " + product.getLink()
+                    + " já existe.");
         }
     }
 }
